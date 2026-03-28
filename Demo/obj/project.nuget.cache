@@ -1,0 +1,23 @@
+{
+  "version": 2,
+  "dgSpecHash": "VxU1TnftMoY=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Zdarev\\Projects\\ErandevEngine\\Demo\\Demo.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Zdarev\\.nuget\\packages\\opentk\\4.9.4\\opentk.4.9.4.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\opentk.audio.openal\\4.9.4\\opentk.audio.openal.4.9.4.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\opentk.compute\\4.9.4\\opentk.compute.4.9.4.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\opentk.core\\4.9.4\\opentk.core.4.9.4.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\opentk.graphics\\4.9.4\\opentk.graphics.4.9.4.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\opentk.input\\4.9.4\\opentk.input.4.9.4.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\opentk.mathematics\\4.9.4\\opentk.mathematics.4.9.4.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\opentk.redist.glfw\\3.4.0.44\\opentk.redist.glfw.3.4.0.44.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\opentk.windowing.common\\4.9.4\\opentk.windowing.common.4.9.4.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\opentk.windowing.desktop\\4.9.4\\opentk.windowing.desktop.4.9.4.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\opentk.windowing.graphicslibraryframework\\4.9.4\\opentk.windowing.graphicslibraryframework.4.9.4.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\sixlabors.fonts\\1.0.0-beta15\\sixlabors.fonts.1.0.0-beta15.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\sixlabors.imagesharp\\3.1.12\\sixlabors.imagesharp.3.1.12.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\sixlabors.imagesharp.drawing\\1.0.0-beta13\\sixlabors.imagesharp.drawing.1.0.0-beta13.nupkg.sha512"
+  ],
+  "logs": []
+}

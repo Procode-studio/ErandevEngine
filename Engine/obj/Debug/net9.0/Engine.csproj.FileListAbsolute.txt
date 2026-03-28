@@ -1,0 +1,12 @@
+C:\Users\Zdarev\Projects\ErandevEngine\Engine\bin\Debug\net9.0\Engine.deps.json
+C:\Users\Zdarev\Projects\ErandevEngine\Engine\bin\Debug\net9.0\Engine.dll
+C:\Users\Zdarev\Projects\ErandevEngine\Engine\bin\Debug\net9.0\Engine.pdb
+C:\Users\Zdarev\Projects\ErandevEngine\Engine\obj\Debug\net9.0\Engine.csproj.AssemblyReference.cache
+C:\Users\Zdarev\Projects\ErandevEngine\Engine\obj\Debug\net9.0\Engine.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Zdarev\Projects\ErandevEngine\Engine\obj\Debug\net9.0\Engine.AssemblyInfoInputs.cache
+C:\Users\Zdarev\Projects\ErandevEngine\Engine\obj\Debug\net9.0\Engine.AssemblyInfo.cs
+C:\Users\Zdarev\Projects\ErandevEngine\Engine\obj\Debug\net9.0\Engine.csproj.CoreCompileInputs.cache
+C:\Users\Zdarev\Projects\ErandevEngine\Engine\obj\Debug\net9.0\Engine.dll
+C:\Users\Zdarev\Projects\ErandevEngine\Engine\obj\Debug\net9.0\refint\Engine.dll
+C:\Users\Zdarev\Projects\ErandevEngine\Engine\obj\Debug\net9.0\Engine.pdb
+C:\Users\Zdarev\Projects\ErandevEngine\Engine\obj\Debug\net9.0\ref\Engine.dll
