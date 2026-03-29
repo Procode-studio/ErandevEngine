@@ -1,6 +1,6 @@
 using OpenTK.Graphics.OpenGL4;
 
-namespace Engine.Shaders;
+namespace ErandevEngine.Shaders;
 
 public class Shader
 {

@@ -1,7 +1,6 @@
-using Engine.Shaders;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
-using ErandevEngine.Render;
+using ErandevEngine.Shaders;
 
 namespace ErandevEngine.Render;
 
@@ -18,16 +17,22 @@ public class SystemRender
     public int EBO { get; private set; }
     public int ColorBuffer { get; private set; }
     public Shader shader { get; private set; }
+    public int TextureHandle { get; private set; }
     private int _modelLocation;
     private int IndexCount;
 
-    public SystemRender NewObject(float[] vertices, uint[] indices, float[] arrayColor, string vertexPath, string fragmentPath)
+    public SystemRender NewObject(float[] vertices, uint[] indices, string vertexPath, string fragmentPath, string texturePath = null)
     {
-        Load(vertices, indices, arrayColor, vertexPath, fragmentPath);
+        int tex = 0;
+        if (!string.IsNullOrEmpty(texturePath))
+        {
+            tex = Texture.LoadTexture(texturePath);
+        }
+        Load(vertices, indices, vertexPath, fragmentPath, tex);
         return this;
     }
 
-    public static SystemRender Create(Primitive type, Color4 nameColor, string vertexPath, string fragmentPath)
+    public static SystemRender Create(Primitive type, string vertexPath, string fragmentPath, string texturePath = null)
     {
         vertexPath ??= "../Engine/Shaders/Default/shader.vert";
         fragmentPath ??= "../Engine/Shaders/Default/shader.frag";
@@ -37,17 +42,22 @@ public class SystemRender
             Primitive.Quad => Objects.Quad(),
             _ => throw new ArgumentException("Ошибка при создании обьекта")
         };
-        float[] arrayColor = { nameColor.R, nameColor.G, nameColor.B, nameColor.A };
+
+        int tex = 0;
+        if (!string.IsNullOrEmpty(texturePath))
+        {
+            tex = Texture.LoadTexture(texturePath);
+        }
 
         var render = new SystemRender();
-        render.Load(data.v, data.i, arrayColor, vertexPath, fragmentPath);
+        render.Load(data.v, data.i, vertexPath, fragmentPath, tex);
         return render;
     }
 
-
-    public void Load(float[] vertices, uint[] indices, float[] color, string vertexPath, string fragmentPath)
+    public void Load(float[] vertices, uint[] indices, string vertexPath, string fragmentPath, int textureHandle)
     {
         IndexCount = indices.Length;
+        TextureHandle = textureHandle;
         shader = new Shader(vertexPath, fragmentPath);
         _modelLocation = GL.GetUniformLocation(shader.Handle, "model");
         _projection = Matrix4.CreateOrthographicOffCenter(-1, 1, -1, 1, -1, 1);
@@ -58,18 +68,16 @@ public class SystemRender
         VBO = GL.GenBuffer();
         GL.BindBuffer(BufferTarget.ArrayBuffer, VBO);
         GL.BufferData(BufferTarget.ArrayBuffer, vertices.Length * sizeof(float), vertices, BufferUsageHint.DynamicDraw);
-        GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), 0);
+        GL.VertexAttribPointer(0, 3, VertexAttribPointerType.Float, false, 5 * sizeof(float), 0);
         GL.EnableVertexAttribArray(0);
 
         EBO = GL.GenBuffer();
         GL.BindBuffer(BufferTarget.ElementArrayBuffer, EBO);
         GL.BufferData(BufferTarget.ElementArrayBuffer, IndexCount * sizeof(uint), indices, BufferUsageHint.DynamicDraw);
 
-        ColorBuffer = GL.GenBuffer();
-        GL.BindBuffer(BufferTarget.ArrayBuffer, ColorBuffer);
-        GL.BufferData(BufferTarget.ArrayBuffer, color.Length * sizeof(float), color, BufferUsageHint.DynamicDraw);
-        GL.VertexAttribPointer(1, 4, VertexAttribPointerType.Float, false, 4 * sizeof(float), 0);
-        GL.EnableVertexAttribArray(1);
+        int texCoordLocation = GL.GetAttribLocation(shader.Handle, "aTexCoord");
+        GL.EnableVertexAttribArray(2);
+        GL.VertexAttribPointer(2, 2, VertexAttribPointerType.Float, false, 5 * sizeof(float), 3 * sizeof(float));
 
         GL.BindVertexArray(0);
     }

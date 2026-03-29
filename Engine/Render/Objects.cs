@@ -1,4 +1,4 @@
-using Engine.Shaders;
+using ErandevEngine.Shaders;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
@@ -17,9 +17,10 @@ public static class Objects
     {
         float[] vertices =
         {
-            -0.5f, -0.5f, 0f,
-            0.5f, -0.5f, 0f,
-            0f, 0.5f, 0f,
+            // Position          Texture coordinates
+            0.0f,  0.5f, 0.0f,  0.5f, 1.0f,  // top right
+            0.5f, -0.5f, 0.0f,  1.0f, 0.0f,  // bottom right
+            -0.5f, -0.5f, 0.0f,  0.0f, 0.0f,  // bottom left
         };
 
         uint[] indices = { 0, 1, 2 };
@@ -31,16 +32,17 @@ public static class Objects
     {
         float[] vertices =
         {
-            -0.5f, -0.5f, 0f,
-            0.5f, -0.5f, 0f,
-            0.5f, 0.5f, 0f,
-            -0.5f, 0.5f, 0f,
+            //Position          Texture coordinates
+            0.5f,  0.5f, 0.0f, 1.0f, 1.0f, // top right
+            0.5f, -0.5f, 0.0f, 1.0f, 0.0f, // bottom right
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // bottom left
+            -0.5f,  0.5f, 0.0f, 0.0f, 1.0f  // top left
         };
 
         uint[] indices =
         {
-            0, 1, 2,
-            2, 3, 0
+            0, 1, 3,
+            1, 2, 3
         };
 
         return (vertices, indices);

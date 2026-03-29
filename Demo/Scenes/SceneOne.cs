@@ -2,6 +2,7 @@ using ErandevEngine.Core;
 using ErandevEngine.Render;
 using ErandevEngine.Input;
 using ErandevEngine.Scenes;
+using ErandevEngine.Audio;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Mathematics;
@@ -11,13 +12,14 @@ namespace Demo.Scenes;
 public class SceneOne(string name) : Scene(name)
 {
     private SystemRender? rectangle;
+    private AudioManager am = new AudioManager();
     protected override void OnLoad()
     {
         rectangle = SystemRender.Create(
             Primitive.Quad,
-            Color4.BlueViolet,
             "Shaders/shader.vert",
-            "Shaders/shader.frag"
+            "Shaders/shader.frag",
+            "Assets/Texture1.jpg"
         );
 
         rectangle.Position = new Vector3(0, 0, 0);
@@ -54,6 +56,14 @@ public class SceneOne(string name) : Scene(name)
         if (InputManager.IsKeyDown(Keys.D)) rectangle?.Position += new Vector3(moveSpeed, 0, 0);
         if (InputManager.IsKeyDown(Keys.Q)) rectangle?.Rotation += 90f * (float)elapsedSeconds;
         if (InputManager.IsKeyDown(Keys.E)) rectangle?.Rotation -= 90f * (float)elapsedSeconds;
+        if (InputManager.IsKeyPressed(Keys.Space))
+        {
+            am.PlaySound("Assets/click.mp3"); //работает только mp3!
+        }
+        else
+        {
+            am.StopSound("Assets/click.mp3"); //работает только mp3!
+        }
     }
 
     protected override void OnWindowResize(Vector2i size)

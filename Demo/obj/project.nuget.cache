@@ -1,9 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "VxU1TnftMoY=",
+  "dgSpecHash": "oavZdEW2ORU=",
   "success": true,
   "projectFilePath": "C:\\Users\\Zdarev\\Projects\\ErandevEngine\\Demo\\Demo.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Zdarev\\.nuget\\packages\\naudio\\2.3.0\\naudio.2.3.0.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\naudio.asio\\2.3.0\\naudio.asio.2.3.0.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\naudio.core\\2.3.0\\naudio.core.2.3.0.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\naudio.midi\\2.3.0\\naudio.midi.2.3.0.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\naudio.wasapi\\2.3.0\\naudio.wasapi.2.3.0.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\naudio.winmm\\2.3.0\\naudio.winmm.2.3.0.nupkg.sha512",
     "C:\\Users\\Zdarev\\.nuget\\packages\\opentk\\4.9.4\\opentk.4.9.4.nupkg.sha512",
     "C:\\Users\\Zdarev\\.nuget\\packages\\opentk.audio.openal\\4.9.4\\opentk.audio.openal.4.9.4.nupkg.sha512",
     "C:\\Users\\Zdarev\\.nuget\\packages\\opentk.compute\\4.9.4\\opentk.compute.4.9.4.nupkg.sha512",
@@ -17,7 +23,8 @@
     "C:\\Users\\Zdarev\\.nuget\\packages\\opentk.windowing.graphicslibraryframework\\4.9.4\\opentk.windowing.graphicslibraryframework.4.9.4.nupkg.sha512",
     "C:\\Users\\Zdarev\\.nuget\\packages\\sixlabors.fonts\\1.0.0-beta15\\sixlabors.fonts.1.0.0-beta15.nupkg.sha512",
     "C:\\Users\\Zdarev\\.nuget\\packages\\sixlabors.imagesharp\\3.1.12\\sixlabors.imagesharp.3.1.12.nupkg.sha512",
-    "C:\\Users\\Zdarev\\.nuget\\packages\\sixlabors.imagesharp.drawing\\1.0.0-beta13\\sixlabors.imagesharp.drawing.1.0.0-beta13.nupkg.sha512"
+    "C:\\Users\\Zdarev\\.nuget\\packages\\sixlabors.imagesharp.drawing\\1.0.0-beta13\\sixlabors.imagesharp.drawing.1.0.0-beta13.nupkg.sha512",
+    "C:\\Users\\Zdarev\\.nuget\\packages\\stbimagesharp\\2.30.15\\stbimagesharp.2.30.15.nupkg.sha512"
   ],
   "logs": []
 }
