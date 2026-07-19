@@ -1,6 +1,7 @@
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using ErandevEngine.Shaders;
+using ErandevEngine.Core;
 
 namespace ErandevEngine.Render;
 
@@ -8,38 +9,44 @@ public class SystemRender
 {
     public Vector3 Position { get; set; } = Vector3.Zero;
     public Vector3 Scale { get; set; } = Vector3.One;
-    public float Rotation { get; set; } = 0f;
+    public Vector3 Rotation { get; set; } = Vector3.Zero;
     private Matrix4 model = Matrix4.Identity;
-    private Matrix4 _projection = Matrix4.Identity;
-    private Matrix4 _view = Matrix4.Identity;
     public int VBO { get; private set; }
     public int VAO { get; private set; }
     public int EBO { get; private set; }
     public int ColorBuffer { get; private set; }
-    public Shader shader { get; private set; }
+    public Shader? shader { get; private set; }
     public int TextureHandle { get; private set; }
     private int _modelLocation;
     private int IndexCount;
+    private static string appPath = AppContext.BaseDirectory;
+    static string vertshaderpath = "Shaders/Default/shader.vert";
+    static string fragshaderpath = "Shaders/Default/shader.frag";
 
-    public SystemRender NewObject(float[] vertices, uint[] indices, string vertexPath, string fragmentPath, string texturePath = null)
+    public SystemRender NewObject(float[] vertices, uint[] indices, string texturePath, string? vertexPath = null, string? fragmentPath = null)
     {
         int tex = 0;
         if (!string.IsNullOrEmpty(texturePath))
         {
             tex = Texture.LoadTexture(texturePath);
         }
+
+        string[] vertexPaths = { appPath, vertshaderpath };
+        string[] fragmentPaths = { appPath, fragshaderpath };
+        vertexPath ??= Path.Combine(vertexPaths);
+        fragmentPath ??= Path.Combine(fragmentPaths);
+
         Load(vertices, indices, vertexPath, fragmentPath, tex);
         return this;
     }
 
-    public static SystemRender Create(Primitive type, string vertexPath, string fragmentPath, string texturePath = null)
+    public static SystemRender Create(Primitive type, string texturePath, string? vertexPath = null, string? fragmentPath = null)
     {
-        vertexPath ??= "../Engine/Shaders/Default/shader.vert";
-        fragmentPath ??= "../Engine/Shaders/Default/shader.frag";
         (float[] v, uint[] i) data = type switch
         {
             Primitive.Triangle => Objects.Triangle(),
             Primitive.Quad => Objects.Quad(),
+            Primitive.Cube => Objects.Cube(),
             _ => throw new ArgumentException("Ошибка при создании обьекта")
         };
 
@@ -48,6 +55,11 @@ public class SystemRender
         {
             tex = Texture.LoadTexture(texturePath);
         }
+
+        string[] vertexPaths = { appPath, vertshaderpath };
+        string[] fragmentPaths = { appPath, fragshaderpath };
+        vertexPath ??= Path.Combine(vertexPaths);
+        fragmentPath ??= Path.Combine(fragmentPaths);
 
         var render = new SystemRender();
         render.Load(data.v, data.i, vertexPath, fragmentPath, tex);
@@ -60,7 +72,6 @@ public class SystemRender
         TextureHandle = textureHandle;
         shader = new Shader(vertexPath, fragmentPath);
         _modelLocation = GL.GetUniformLocation(shader.Handle, "model");
-        _projection = Matrix4.CreateOrthographicOffCenter(-1, 1, -1, 1, -1, 1);
 
         VAO = GL.GenVertexArray();
         GL.BindVertexArray(VAO);
@@ -85,17 +96,23 @@ public class SystemRender
     public void Render()
     {
         Matrix4 scale = Matrix4.CreateScale(Scale);
-        Matrix4 rotation = Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(Rotation));
+        Matrix4 rotation = Matrix4.CreateRotationX(MathHelper.DegreesToRadians(Rotation.X)) *
+                           Matrix4.CreateRotationY(MathHelper.DegreesToRadians(Rotation.Y)) *
+                           Matrix4.CreateRotationZ(MathHelper.DegreesToRadians(Rotation.Z));
         Matrix4 translation = Matrix4.CreateTranslation(Position);
-        int projLoc = GL.GetUniformLocation(shader.Handle, "projection");
-        int viewLoc = GL.GetUniformLocation(shader.Handle, "view");
+        int projLoc = GL.GetUniformLocation(shader!.Handle, "projection");
+        int viewLoc = GL.GetUniformLocation(shader!.Handle, "view");
 
         model = scale * rotation * translation;
 
-        shader.Use();
+        shader?.Use();
         GL.UniformMatrix4(_modelLocation, false, ref model);
-        GL.UniformMatrix4(projLoc, false, ref _projection);
-        GL.UniformMatrix4(viewLoc, false, ref _view);
+
+        Matrix4 projection = Erandev.Engine.Camera!.Projection;
+        Matrix4 view = Erandev.Engine.Camera!.View;
+
+        GL.UniformMatrix4(projLoc, false, ref projection);
+        GL.UniformMatrix4(viewLoc, false, ref view);
 
         GL.BindVertexArray(VAO);
         GL.DrawElements(PrimitiveType.Triangles, IndexCount, DrawElementsType.UnsignedInt, 0);

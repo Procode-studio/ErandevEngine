@@ -1,7 +1,8 @@
-using ErandevEngine.Input;
+using ErandevEngine.Render;
 using ErandevEngine.Scenes;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
+using OpenTK.Graphics.OpenGL4;
 using OpenTK.Windowing.Desktop;
 
 namespace ErandevEngine.Core;
@@ -10,9 +11,9 @@ public class Erandev
 {
     private static readonly Lazy<Erandev> Lazy = new(() => new Erandev());
     public static Erandev Engine => Lazy.Value;
-    internal Window? Window;
+    public Window? Window { get; private set; }
     public SceneManager Scenes { get; } = new();
-    private Erandev() { }
+    public Camera? Camera { get; private set; }
 
     public void CreateWindow(Vector2i size, string title = "ErandevEngine", double updateFrequency = 60)
     {
@@ -32,6 +33,8 @@ public class Erandev
         };
 
         Window = new Window(gws, nws);
+
+        Camera = new Camera(size.X, size.Y);
     }
 
     public void ToggleFullscreen()
@@ -51,5 +54,10 @@ public class Erandev
     public void Close()
     {
         Window?.Close();
+    }
+
+    public void BGColor(Color4 color)
+    {
+        GL.ClearColor(color);
     }
 }
